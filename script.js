@@ -64,7 +64,7 @@ fadeEls.forEach(el => fadeObserver.observe(el));
 // ── Contact form (Formspree) ──────────────────────────────────
 // Replace YOUR_FORM_ID below with the ID from your Formspree dashboard
 // e.g. if your endpoint is https://formspree.io/f/abcd1234, use "abcd1234"
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mojolybe';
 
 const form       = document.getElementById('contact-form');
 const submitBtn  = document.getElementById('submit-btn');
