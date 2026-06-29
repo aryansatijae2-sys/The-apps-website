@@ -61,36 +61,55 @@ const fadeObserver = new IntersectionObserver(entries => {
 
 fadeEls.forEach(el => fadeObserver.observe(el));
 
-// ── Contact form ─────────────────────────────────────────────
+// ── Contact form (Formspree) ──────────────────────────────────
+// Replace YOUR_FORM_ID below with the ID from your Formspree dashboard
+// e.g. if your endpoint is https://formspree.io/f/abcd1234, use "abcd1234"
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+
 const form       = document.getElementById('contact-form');
 const submitBtn  = document.getElementById('submit-btn');
 const successMsg = document.getElementById('form-success');
 const errorMsg   = document.getElementById('form-error');
 
-form.addEventListener('submit', e => {
+form.addEventListener('submit', async e => {
   e.preventDefault();
   successMsg.style.display = 'none';
   errorMsg.style.display   = 'none';
 
-  const name    = form.name.value.trim();
-  const email   = form.email.value.trim();
-  const message = form.message.value.trim();
+  const name    = form.querySelector('#name').value.trim();
+  const email   = form.querySelector('#email').value.trim();
+  const message = form.querySelector('#message').value.trim();
 
   if (!name || !email || !message) {
-    errorMsg.style.display = 'block';
+    errorMsg.textContent     = 'Please fill in all required fields.';
+    errorMsg.style.display   = 'block';
     return;
   }
 
-  // Disable button while "sending"
   submitBtn.disabled    = true;
   submitBtn.textContent = 'Sending…';
 
-  // Simulate submission — swap for Formspree / EmailJS / etc.
-  setTimeout(() => {
-    form.reset();
+  try {
+    const res = await fetch(FORMSPREE_ENDPOINT, {
+      method:  'POST',
+      headers: { 'Accept': 'application/json' },
+      body:    new FormData(form),
+    });
+
+    if (res.ok) {
+      form.reset();
+      successMsg.style.display = 'block';
+      setTimeout(() => { successMsg.style.display = 'none'; }, 6000);
+    } else {
+      const data = await res.json().catch(() => ({}));
+      errorMsg.textContent   = data.error || 'Something went wrong. Please try again.';
+      errorMsg.style.display = 'block';
+    }
+  } catch {
+    errorMsg.textContent   = 'Network error — please check your connection and try again.';
+    errorMsg.style.display = 'block';
+  } finally {
     submitBtn.disabled    = false;
     submitBtn.textContent = 'Send Message';
-    successMsg.style.display = 'block';
-    setTimeout(() => { successMsg.style.display = 'none'; }, 6000);
-  }, 900);
+  }
 });

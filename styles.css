@@ -193,13 +193,13 @@ ul  { list-style: none; }
   line-height: 1.15;
 }
 .nav-logo-name {
-  font-size: .9rem;
+  font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: .015em;
   color: var(--white);
 }
 .nav-logo-sub {
-  font-size: .7rem;
+  font-size: .8rem;
   color: rgba(255,255,255,.5);
   letter-spacing: .06em;
 }
