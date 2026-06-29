@@ -150,22 +150,29 @@ ul  { list-style: none; }
   inset: 0 0 auto;
   z-index: 200;
   background: var(--navy);
-  transition: box-shadow var(--ease);
+  border-top: 3px solid var(--gold);       /* always-on premium accent stripe */
+  border-bottom: 1px solid transparent;
+  transition: box-shadow var(--ease), border-color var(--ease);
 }
 .header.scrolled {
-  box-shadow: 0 2px 28px rgba(0,0,0,.32);
+  box-shadow: 0 4px 32px rgba(0,0,0,.34);
+  border-bottom-color: rgba(200,146,42,.22);
 }
 
 /* ── Masthead ── */
 .masthead {
-  border-bottom: 1px solid rgba(255,255,255,.07);
+  border-bottom: 1px solid rgba(255,255,255,.1);
   overflow: hidden;
-  max-height: 160px;
-  padding: 1.875rem 0 1.5rem;
+  max-height: 180px;
+  padding: 2rem 0 1.625rem;
   opacity: 1;
-  transition: max-height .38s cubic-bezier(.4,0,.2,1),
-              padding    .38s cubic-bezier(.4,0,.2,1),
-              opacity    .28s ease;
+  /* Subtle warm glow from the left where the brand name sits */
+  background-image:
+    radial-gradient(ellipse 55% 130% at 5% 50%, rgba(200,146,42,.1) 0%, transparent 65%),
+    linear-gradient(to bottom, rgba(255,255,255,.03) 0%, transparent 100%);
+  transition: max-height .44s cubic-bezier(.4,0,.2,1),
+              padding    .44s cubic-bezier(.4,0,.2,1),
+              opacity    .32s ease;
 }
 .header.scrolled .masthead {
   max-height: 0;
@@ -177,8 +184,15 @@ ul  { list-style: none; }
 .masthead-brand {
   display: inline-flex;
   flex-direction: column;
-  gap: .55rem;
+  gap: .625rem;
   color: var(--white);
+  padding-left: 1.375rem;
+  border-left: 3px solid var(--gold);      /* pull-quote accent */
+  transform: translateY(0);
+  transition: transform .44s cubic-bezier(.4,0,.2,1);
+}
+.header.scrolled .masthead-brand {
+  transform: translateY(-8px);             /* content slides up as masthead closes */
 }
 
 .masthead-name {
@@ -188,14 +202,16 @@ ul  { list-style: none; }
   color: var(--white);
   letter-spacing: -.025em;
   line-height: 1;
+  text-shadow: 0 2px 20px rgba(0,0,0,.28);
 }
 
 .masthead-tagline {
   font-size: .6875rem;
   font-weight: 700;
-  letter-spacing: .16em;
+  letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--gold);
+  opacity: .85;
 }
 
 .nav {
@@ -203,6 +219,7 @@ ul  { list-style: none; }
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
+  padding: .875rem 0;
 }
 
 /* Logo: hidden while masthead is showing, fades in after scroll */
@@ -368,7 +385,7 @@ ul  { list-style: none; }
 .hero-inner {
   position: relative;
   z-index: 1;
-  padding-top: 15rem;
+  padding-top: 15.25rem;
   padding-bottom: 7rem;
   max-width: 800px;
 }
