@@ -255,23 +255,24 @@ ul  { list-style: none; }
 }
 .nav-logo-text {
   display: flex;
-  flex-direction: column;
-  line-height: 1.15;
+  flex-direction: row;
+  align-items: baseline;
+  gap: .35em;
+  white-space: nowrap;
 }
 .nav-logo-name {
   font-family: var(--font-serif);
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 900;
   letter-spacing: -.015em;
   color: var(--white);
 }
 .nav-logo-sub {
   font-size: .7rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: .1em;
+  letter-spacing: .08em;
   color: rgba(255,255,255,.5);
-  letter-spacing: .06em;
 }
 
 /* Nav links */
